@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <p>Welcome {{user.first_name}} {{user.last_name}}!</p>
+            <a href="/myaccount/{{user.id}}" class="edit">Edit My Account</a>
+            <button><a href="/logout">Log Out</a></button>
+        </div>
+
+        <div class="all_quotes">
+            <h3>Quotes</h3>
+            {% for quote in all_quotes %}
+                <div class="one_quote">
+                    <p>{{quote.author}}: "{{quote.quote}}"</p>
+                    <p>Posted by <a href="/user/{{quote.poster.id}}">{{quote.poster.first_name}} {{quote.poster.last_name}}</a></p>
+                    <p>{{quote.likes.count}} people like this
+
+                        {% if quote.poster.id == request.session.user_id %}
+                            <a href="/{{quote.id}}/edit_quote">Edit </a>&nbsp;
+                            <a href="/{{quote.id}}/delete_quote">Delete</a>
+                            {% if user not in quote.likes.all %}
+                                <form action="/{{quote.id}}/like" method="post">
+                                    {% csrf_token %}
+                                    
+                                    <input type="submit" name="add_like" Value="Like">
+                                </form>
+                            {% else %}
+                                <form action="/{{quote.id}}/unlike" method="post">
+                                    {% csrf_token %}
+                                    <input type="submit" name="remove_like" Value="Unlike">
+                                </form>
+                            {% endif %}
+
+                        {% else %}
+
+                            {% if user not in quote.likes.all %}
+                                <form action="/{{quote.id}}/like" method="post">
+                                    {% csrf_token %}
+                                    <input type="submit" name="add_like" Value="Like">
+                                </form>
+                            {% else %}
+                                <form action="/{{quote.id}}/unlike" method="post">
+                                    {% csrf_token %}
+                                    <input type="submit" name="remove_like" Value="Unlike">
+                                </form>
+                            {% endif %}
+
+                    {% endif %}
+                    </p>
+                </div>
+            {% endfor %}
+
+
+        </div>
+
+        <div class="add_quote">
+            <h3>Add a Quote!</h3>
+            <form action="/add" method="post">
+                {% csrf_token %}
+                <p>Author:<input type="text" name="author"></p>
+                <p>Quote <textarea name="quote" cols="40" rows="8"></textarea></p>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>

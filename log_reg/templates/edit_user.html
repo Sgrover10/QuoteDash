@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Account</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <p>Edit My Account</p>
+            <a href="/quotes" class='edit'>Back</a>
+            <button><a href="/logout">Logout</a></button>
+        </div>
+        <div class="info">
+
+            {% if messages %}
+            <ul>
+                {% for error in messages %}
+                <li>{{error}}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            <form action="/myaccount/{{edit_user.id}}" method="post">
+                {% csrf_token %}
+                <p>First Name: <input type="text" name="fname" value="{{edit_user.first_name}}"></p>
+                <p>Last Name: <input type="text" name="lname" value="{{edit_user.last_name}}"></p>
+                <p>Email: <input type="email" name="email" value="{{edit_user.email}}"></p>
+                <br>
+                <input type="submit" value="Update">
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>

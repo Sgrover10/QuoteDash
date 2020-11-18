@@ -1,0 +1,53 @@
+*{
+    font-family: sans-serif;
+}
+.container{
+    width: 900px;
+    margin: 0px auto;
+    padding: 10px;
+}
+
+.reg, .log{
+    width: 300px;
+    display: inline-block;
+    margin: 30px 30px;
+    vertical-align: top;
+}
+form input{
+    float: right;
+}
+
+h2{
+    text-align: center;
+}
+
+.navbar a{
+    display: inline-block;
+}
+.navbar p{
+    display: inline-block;
+
+}
+
+.edit{
+    margin-left: 550px;
+}
+
+.all_quotes, .add_quote, .info{
+    vertical-align: top;
+    margin-right: 70px;
+    margin-left: 49px;
+    display: inline-block;
+    width: 350px;
+}
+.add_quote{
+    margin-right: 27px;
+}
+.one_quote{
+    border: 2px solid black;
+    margin: 20px 0px;
+    padding: 10px;
+} 
+
+
+

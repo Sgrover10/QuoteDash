@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Quotes</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <p>{{user.first_name}} {{user.last_name}}'s Quotes</p>
+            <a href="/quotes" class="edit">Back</a>
+            <button><a href="/logout">Logout</a></button>
+        </div>
+        <div class="all_quotes">
+            {% for quote in user_quotes %}
+            <div class="one_quote">
+                <p>{{quote.author}}: "{{quote.quote}}"</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
